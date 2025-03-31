@@ -49,7 +49,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg rounded_lg dark:bg-gray-800 text-gray-800 dark:text-white">
+    <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg rounded_lg dark:bg-gray-800 dark:text-white">
       <div className="flex pt-1">
         {/*<Image
           src="/infinity.png"
@@ -502,17 +502,16 @@ function SidebarItem({
   const isActive = pathname === href;
 
   return (
-    <Link
-      href={href}
-      className={`flex items-center space-x-2 p-2 rounded-md transition-all duration-200 ${
-        isActive 
-        ? 'bg-blue-800 !text-white'
-        : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
-      }`}
-    >
-      {icon}
-      <span className="text-xs">{label}</span>
-    </Link>
+    <Link href={href}
+  className={`flex items-center space-x-2 p-2 rounded-md transition-all duration-200 cursor-pointer ${
+    isActive 
+      ? 'bg-blue-800 text-white dark:bg-blue-500 dark:text-white' // Fundo azul, texto e ícone brancos
+      : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
+  }`}
+>
+{icon && <span className={`text-lg ${isActive ? 'text-white dark:text-white' : ''}`}>{icon}</span>}
+  <span className={`text-xs ${isActive ? 'text-white dark:text-white' : ''}`}>{label}</span>
+</Link>
   );
 }
 
@@ -538,10 +537,10 @@ function DropdownSidebarItem({
     <div>
       <button
         onClick={() => onToggle(index)}
-        className={`flex items-center justify-between w-full px-4 py-2 rounded-md transition-all duration-200 ${
+        className={`flex items-center justify-between w-full px-4 py-2 rounded-md transition-all duration-200 cursor-pointer ${
           isChildActive
-            ? 'bg-blue-800 text-white'
-            : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
+            ? 'bg-blue-800 text-white dark:bg-blue-500'
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white '
         }`}
       >
         <div className="flex items-center space-x-2">

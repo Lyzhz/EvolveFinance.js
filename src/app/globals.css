@@ -223,7 +223,7 @@ body.dark .main-content {
 }
 
 body.dark .sidebar {
-  background-color: #2d3748; /* Cor para tema escuro */
+  background-color: var(--color-gray-800); /* Cor para tema escuro */
   color: #e2e8f0; /* Cor do texto para tema escuro */
 }
 
