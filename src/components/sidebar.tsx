@@ -49,16 +49,16 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="h-100% w-100% bg-white text-black border flex flex-col shadow-lg rounded_lg">
+    <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg rounded_lg dark:bg-gray-800 text-gray-800 dark:text-white">
       <div className="flex pt-1">
-        <Image
+        {/*<Image
           src="/infinity.png"
           alt="infinitylogo"
           className="p-2"
           width={200}
           height={100}
           style={{ objectFit: 'contain' }}
-        />
+        />*/}
       </div>
       <nav className="flex-1 font-semibold overflow-y-auto border-y border-t-gray-200 py-3 px-2">
         <div className="flex flex-col pb-1.5">
@@ -505,7 +505,9 @@ function SidebarItem({
     <Link
       href={href}
       className={`flex items-center space-x-2 p-2 rounded-md transition-all duration-200 ${
-        isActive ? 'bg-blue-800 text-white' : 'hover:bg-gray-200'
+        isActive 
+        ? 'bg-blue-800 !text-white'
+        : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
       }`}
     >
       {icon}
@@ -537,7 +539,9 @@ function DropdownSidebarItem({
       <button
         onClick={() => onToggle(index)}
         className={`flex items-center justify-between w-full px-4 py-2 rounded-md transition-all duration-200 ${
-          isChildActive ? 'bg-blue-800 text-white' : 'hover:bg-gray-200'
+          isChildActive
+            ? 'bg-blue-800 text-white'
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
         }`}
       >
         <div className="flex items-center space-x-2">

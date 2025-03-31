@@ -201,3 +201,36 @@ body {
 .delay-600 {
   animation-delay: 0.14s;
 }
+
+
+body.dark {
+  background-color: #1a202c; /* cor de fundo escura */
+  color: #e2e8f0; /* texto claro */
+}
+
+/* Outras regras de tema escuro */
+body.dark .topbar {
+  background-color: #2d3748; /* Exemplo para a topbar */
+}
+
+body.dark .main-content {
+  background-color: #1a202c; /* Exemplo para o conteúdo principal */
+}
+/* Estilos para a Sidebar */
+.sidebar {
+  background-color: white; /* Cor padrão para o tema claro */
+  color: #2d3748; /* Cor do texto para tema claro */
+}
+
+body.dark .sidebar {
+  background-color: #2d3748; /* Cor para tema escuro */
+  color: #e2e8f0; /* Cor do texto para tema escuro */
+}
+
+.sidebar a {
+  color: #2d3748; /* Link padrão para tema claro */
+}
+
+body.dark .sidebar a {
+  color: #e2e8f0; /* Link para tema escuro */
+}
