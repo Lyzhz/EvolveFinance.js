@@ -127,6 +127,8 @@
 }
 
 body {
+  transition: background-color 0.9s ease-in-out, color 0.9s ease-in-out;
+
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -233,4 +235,30 @@ body.dark .sidebar {
 
 body.dark .sidebar a {
   color: #e2e8f0; /* Link para tema escuro */
+}
+@keyframes typing {
+  0% {
+    width: 0;
+    overflow: hidden;
+  }
+  100% {
+    width: 100%;
+    overflow: visible;
+  }
+}
+
+.typing-text span {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 0.05s steps(1) forwards;
+}
+
+.typing-text span:nth-child(odd) {
+  animation-delay: 0.1s;
+}
+
+.typing-text span:nth-child(even) {
+  animation-delay: 0.2s;
 }
