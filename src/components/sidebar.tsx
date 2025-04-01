@@ -51,14 +51,14 @@ export default function Sidebar() {
   return (
     <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg rounded_lg dark:bg-gray-800 dark:text-white">
       <div className="flex pt-1">
-        {/*<Image
+        <Image
           src="/infinity.png"
           alt="infinitylogo"
           className="p-2"
           width={200}
           height={100}
           style={{ objectFit: 'contain' }}
-        />*/}
+        />
       </div>
       <nav className="flex-1 font-semibold overflow-y-auto border-y border-t-gray-200 py-3 px-2">
         <div className="flex flex-col pb-1.5">

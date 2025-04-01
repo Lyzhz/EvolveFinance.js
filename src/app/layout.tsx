@@ -11,7 +11,6 @@ const inter = Inter({ subsets: ['latin'] });
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Verifica se o tema foi salvo no localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -22,7 +21,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }
   }, []);
 
-  // Função para alternar o tema
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
@@ -43,13 +41,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Main content area */}
           <div className="flex flex-col flex-1">
-            {/* TopBar com botão de alternância de tema */}
+            {/* TopBar */}
             <TopBar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
 
             {/* Main content */}
-            <main className="flex-1">
-              {children}
-            </main>
+            <main className="flex-1">{children}</main>
           </div>
         </div>
       </body>
