@@ -10,30 +10,21 @@ import {
   GitBranch,
   Layers,
   FileDigit,
-  Bell,
   Search,
   Plus,
   SquarePen,
   Trash,
-  Package,
-  FileText,
-  Camera,
-  Key,
-  Shield,
-  Box,
-  UserPlus,
-  Car,
-  ImageIcon,
-  UserCircle2,
-  LucideAppWindow,
-  AlignHorizontalJustifyEndIcon,
-  DoorClosed,
-  AlignVerticalSpaceBetween,
-  LayoutTemplate,
-  ScreenShare,
-  FilesIcon,
-  Monitor,
-  DoorClosedIcon,
+  Wallet,
+  TrendingUp,
+  TrendingDown,
+  FileBarChart,
+  CreditCard,
+  Landmark,
+  PiggyBank,
+  Target,
+  PieChart,
+  BarChart3,
+  Calculator,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -49,22 +40,23 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg rounded_lg dark:bg-gray-800 dark:text-white">
+    <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg dark:bg-gray-800 dark:text-white">
       <div className="flex pt-1">
         <Image
-          src="/infinity.png"
-          alt="infinitylogo"
-          className="p-2"
+          src="/logo.png"
+          alt="Evolvelogo"
+          className="p-5 ml-5 mb-2"
           width={200}
-          height={100}
+          height={200}
           style={{ objectFit: 'contain' }}
         />
       </div>
       <nav className="flex-1 font-semibold overflow-y-auto border-y border-t-gray-200 py-3 px-2">
         <div className="flex flex-col pb-1.5">
           <SidebarItem href="/" icon={<Home size={20} />} label="Início" />
-          <Link href="SidebarItem"></Link>
         </div>
+
+        {/* Administração do Sistema (mantido) */}
         <DropdownSidebarItem
           index={0}
           isOpen={openIndex === 0}
@@ -105,382 +97,166 @@ export default function Sidebar() {
           ]}
         />
 
+        {/* Financeiro */}
         <DropdownSidebarItem
           index={1}
           isOpen={openIndex === 1}
           onToggle={handleToggle}
-          label="Alarmes"
-          icon={<Bell size={20} />}
+          label="Financeiro"
+          icon={<Wallet size={20} />}
           options={[
             {
-              href: '/Alarms/AlarmSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
+              href: '/finance/receitas',
+              label: 'Receitas',
+              icon: <TrendingUp size={20} />,
             },
             {
-              href: '/Alarms/AlarmAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
+              href: '/finance/despesas',
+              label: 'Despesas',
+              icon: <TrendingDown size={20} />,
             },
             {
-              href: '/Alarms/AlarmEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
+              href: '/finance/relatorios',
+              label: 'Relatórios',
+              icon: <FileBarChart size={20} />,
             },
             {
-              href: '/Alarms/AlarmDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
+              href: '/finance/categorias',
+              label: 'Categorias',
+              icon: <PieChart size={20} />,
+            },
+            {
+              href: '/finance/orcamento',
+              label: 'Orçamento',
+              icon: <Calculator size={20} />,
             },
           ]}
         />
 
+        {/* Contas Bancárias */}
         <DropdownSidebarItem
           index={2}
           isOpen={openIndex === 2}
           onToggle={handleToggle}
-          label="Almoxarifado"
-          icon={<Package size={20} />}
+          label="Contas Bancárias"
+          icon={<Landmark size={20} />}
           options={[
             {
-              href: '/Warehouse/WarehouseSearch',
+              href: '/contas/consulta',
               label: 'Consulta',
               icon: <Search size={20} />,
             },
             {
-              href: '/Warehouse/WarehouseAdd',
+              href: '/contas/novo',
               label: 'Novo',
               icon: <Plus size={20} />,
             },
             {
-              href: '/Warehouse/WarehouseEdit',
+              href: '/contas/editar',
               label: 'Editar',
               icon: <SquarePen size={20} />,
             },
             {
-              href: '/Warehouse/WarehouseDelete',
+              href: '/contas/excluir',
               label: 'Excluir',
               icon: <Trash size={20} />,
             },
-          ]}
+          ]}  
         />
-
+        {/* Cartões */}
         <DropdownSidebarItem
           index={3}
           isOpen={openIndex === 3}
           onToggle={handleToggle}
-          label="Brigadistas"
-          icon={<FileText size={20} />}
+          label="Cartões"
+          icon={<CreditCard size={20} />}
           options={[
             {
-              href: '/FireFighters/FireFighterSearch',
+              href: '/cartoes/consulta',
               label: 'Consulta',
               icon: <Search size={20} />,
             },
             {
-              href: '/FireFighters/FireFighterAdd',
+              href: '/cartoes/novo',
               label: 'Novo',
               icon: <Plus size={20} />,
             },
             {
-              href: '/FireFighters/FireFighterEdit',
+              href: '/cartoes/editar',
               label: 'Editar',
               icon: <SquarePen size={20} />,
             },
             {
-              href: '/FireFighters/FireFighterDelete',
+              href: '/cartoes/excluir',
               label: 'Excluir',
               icon: <Trash size={20} />,
             },
           ]}
         />
 
+        {/* Investimentos */}
         <DropdownSidebarItem
           index={4}
           isOpen={openIndex === 4}
           onToggle={handleToggle}
-          label="CFTV"
-          icon={<Camera size={20} />}
+          label="Investimentos"
+          icon={<BarChart3 size={20} />}
           options={[
             {
-              href: '/CFTV/CftvSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
+              href: '/investimentos/carteira',
+              label: 'Carteira',
+              icon: <BarChart3 size={20} />,
             },
             {
-              href: '/CFTV/CftvAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
+              href: '/investimentos/renda-fixa',
+              label: 'Renda Fixa',
+              icon: <Landmark size={20} />,
             },
             {
-              href: '/CFTV/CftvEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
+              href: '/investimentos/acoes',
+              label: 'Ações',
+              icon: <TrendingUp size={20} />,
             },
             {
-              href: '/CFTV/CftvDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
+              href: '/investimentos/fundos',
+              label: 'Fundos',
+              icon: <FileBarChart size={20} />,
+            },
+            {
+              href: '/investimentos/poupanca',
+              label: 'Poupança',
+              icon: <PiggyBank size={20} />,
             },
           ]}
         />
 
+        {/* Planejamento */}
         <DropdownSidebarItem
           index={5}
           isOpen={openIndex === 5}
           onToggle={handleToggle}
-          label="Claviculário"
-          icon={<Key size={20} />}
+          label="Planejamento"
+          icon={<Target size={20} />}
           options={[
             {
-              href: '/Storage/StorageSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
+              href: '/planejamento/metas',
+              label: 'Metas',
+              icon: <Target size={20} />,
             },
             {
-              href: '/Storage/StorageAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
+              href: '/planejamento/reservas',
+              label: 'Reservas',
+              icon: <PiggyBank size={20} />,
             },
             {
-              href: '/Storage/StorageEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
+              href: '/planejamento/simulacoes',
+              label: 'Simulações',
+              icon: <Calculator size={20} />,
             },
             {
-              href: '/Storage/StorageDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={6}
-          isOpen={openIndex === 6}
-          onToggle={handleToggle}
-          label="Controle de Acesso"
-          icon={<Shield size={20} />}
-          options={[
-            {
-              href: '/AccessControl/AccessControlPerson',
-              label: 'Pessoa',
-              icon: <UserCircle2 size={20} />,
-            },
-            {
-              href: '/AccessControl/AccessControlGerenc',
-              label: 'Gerenciadora',
-              icon: <LucideAppWindow size={20} />,
-            },
-            {
-              href: '/AccessControl/AccessControlController',
-              label: 'Controladora',
-              icon: <AlignHorizontalJustifyEndIcon size={20} />,
-            },
-            {
-              href: '/AccessControl/AccessControlDoor',
-              label: 'Portas',
-              icon: <DoorClosed size={20} />,
-            },
-            {
-              href: '/AccessControl/AccessControlAreas',
-              label: 'Áreas',
-              icon: <AlignVerticalSpaceBetween size={20} />,
-            },
-            {
-              href: '/AccessControl/AccessControlTemplate',
-              label: 'Template',
-              icon: <LayoutTemplate size={20} />,
-            },
-            {
-              href: '/AccessControl/AccessControlScreen',
-              label: 'Telas',
-              icon: <ScreenShare size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={7}
-          isOpen={openIndex === 7}
-          onToggle={handleToggle}
-          label="Controle de Lockers"
-          icon={<Box size={20} />}
-          options={[
-            {
-              href: '/LockerControl/LockersSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
-            },
-            {
-              href: '/LockerControl/LockersPerson',
-              label: 'Pessoa - Locker',
-              icon: <UserCircle2 size={20} />,
-            },
-            {
-              href: '/LockerControl/LockersTotens',
-              label: 'Totens',
-              icon: <Monitor size={20} />,
-            },
-            {
-              href: '/LockerControl/LockersDoors',
-              label: 'Portas',
-              icon: <DoorClosedIcon size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={8}
-          isOpen={openIndex === 8}
-          onToggle={handleToggle}
-          label="Controle de Provisórios"
-          icon={<UserPlus size={20} />}
-          options={[
-            {
-              href: '/ProvisionalControl/ProviControlSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
-            },
-            {
-              href: '/ProvisionalControl/ProviControlAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
-            },
-            {
-              href: '/ProvisionalControl/ProviControlEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
-            },
-            {
-              href: '/ProvisionalControl/ProviControlDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={9}
-          isOpen={openIndex === 9}
-          onToggle={handleToggle}
-          label="Controle de Visitantes"
-          icon={<Users size={20} />}
-          options={[
-            {
-              href: '/VisitorControl/VisitorSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
-            },
-            {
-              href: '/VisitorControl/VisitorAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
-            },
-            {
-              href: '/VisitorControl/VisitorEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
-            },
-            {
-              href: '/VisitorControl/VisitorDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={10}
-          isOpen={openIndex === 10}
-          onToggle={handleToggle}
-          label="Estacionamento"
-          icon={<Car size={20} />}
-          options={[
-            {
-              href: '/Parking/PlateSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
-            },
-            {
-              href: '/Parking/PlateAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
-            },
-            {
-              href: '/Parking/PlateEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
-            },
-            {
-              href: '/Parking/PlateDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={11}
-          isOpen={openIndex === 11}
-          onToggle={handleToggle}
-          label="Objetos Esquecidos"
-          icon={<Box size={20} />}
-          options={[
-            {
-              href: '/ForgettenObjects/FrgObjSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
-            },
-            {
-              href: '/ForgettenObjects/FrgObjAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
-            },
-            {
-              href: '/ForgettenObjects/FrgObjEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
-            },
-            {
-              href: '/ForgettenObjects/FrgObjTransfer',
-              label: 'Transferência',
-              icon: <FilesIcon size={20} />,
-            },
-            {
-              href: '/ForgettenObjects/FrgObjDelete',
-              label: 'Deletar',
-              icon: <Trash size={20} />,
-            },
-          ]}
-        />
-
-        <DropdownSidebarItem
-          index={12}
-          isOpen={openIndex === 12}
-          onToggle={handleToggle}
-          label="Solicitação de Imagens"
-          icon={<ImageIcon size={20} />}
-          options={[
-            {
-              href: '/ImageRequest/ImageReqSearch',
-              label: 'Consulta',
-              icon: <Search size={20} />,
-            },
-            {
-              href: '/ImageRequest/ImageReqAdd',
-              label: 'Novo',
-              icon: <Plus size={20} />,
-            },
-            {
-              href: '/ImageRequest/ImageReqEdit',
-              label: 'Editar',
-              icon: <SquarePen size={20} />,
-            },
-            {
-              href: '/ImageRequest/ImageReqDelete',
-              label: 'Excluir',
-              icon: <Trash size={20} />,
+              href: '/planejamento/relatorios',
+              label: 'Relatórios',
+              icon: <FileBarChart size={20} />,
             },
           ]}
         />
@@ -502,16 +278,19 @@ function SidebarItem({
   const isActive = pathname === href;
 
   return (
-    <Link href={href}
-  className={`flex items-center space-x-2 p-2 rounded-md transition-all duration-200 cursor-pointer ${
-    isActive 
-      ? 'bg-blue-800 text-white dark:bg-blue-500 dark:text-white' // Fundo azul, texto e ícone brancos
-      : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
-  }`}
->
-{icon && <span className={`text-lg ${isActive ? 'text-white dark:text-white' : ''}`}>{icon}</span>}
-  <span className={`text-xs ${isActive ? 'text-white dark:text-white' : ''}`}>{label}</span>
-</Link>
+    <Link
+      href={href}
+      className={`flex items-center space-x-2 p-2 rounded-md transition-all duration-200 cursor-pointer ${
+        isActive
+          ? 'bg-blue-800 text-white dark:bg-blue-500 dark:text-white'
+          : 'hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
+      }`}
+    >
+      {icon && (
+        <span className={`text-lg ${isActive ? 'text-white dark:text-white' : ''}`}>{icon}</span>
+      )}
+      <span className={`text-xs ${isActive ? 'text-white dark:text-white' : ''}`}>{label}</span>
+    </Link>
   );
 }
 
@@ -562,12 +341,7 @@ function DropdownSidebarItem({
         className="ml-4 overflow-hidden pt-1 space-y-1"
       >
         {options.map((option) => (
-          <SidebarItem
-            key={option.href}
-            href={option.href}
-            icon={option.icon}
-            label={option.label}
-          />
+          <SidebarItem key={option.href} href={option.href} icon={option.icon} label={option.label} />
         ))}
       </motion.div>
     </div>

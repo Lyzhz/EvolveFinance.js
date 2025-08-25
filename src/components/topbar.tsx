@@ -10,7 +10,7 @@ interface TopBarProps {
 }
 
 export default function TopBar({ toggleTheme, isDarkMode }: TopBarProps) {
-  const fullText = "ISS - Infinity Security System";
+  const fullText = "Evolve - Gestão de Financeiro"; // Texto para animação
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
 

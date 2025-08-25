@@ -38,7 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="flex h-full">
           {/* Sidebar */}
           <Sidebar />
-
           {/* Main content area */}
           <div className="flex flex-col flex-1">
             {/* TopBar */}
