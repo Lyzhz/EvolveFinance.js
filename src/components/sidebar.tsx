@@ -28,8 +28,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
  
+// =======================
+// COMPONENTE PRINCIPAL
+// =======================
 export default function Sidebar() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
  
@@ -38,7 +40,8 @@ export default function Sidebar() {
   };
  
   return (
-    <div className="sidebar h-100% w-100% bg-white text-black border flex flex-col shadow-lg dark:bg-gray-800 dark:text-white">
+    <div className="sidebar h-full w-full bg-white text-black border flex flex-col shadow-lg dark:bg-gray-800 dark:text-white">
+      
       <div className="flex pt-1">
         <Image
           src="/logo.png"
@@ -51,10 +54,8 @@ export default function Sidebar() {
  
       <nav className="flex-1 font-semibold overflow-y-auto border-y border-t-gray-200 py-3 px-2">
  
-        {/* Home */}
         <SidebarItem href="/" icon={<Home size={20} />} label="Dashboard" />
  
-        {/* Administração */}
         <DropdownSidebarItem
           index={0}
           isOpen={openIndex === 0}
@@ -70,7 +71,6 @@ export default function Sidebar() {
           ]}
         />
  
-        {/* Monitoramento */}
         <DropdownSidebarItem
           index={1}
           isOpen={openIndex === 1}
@@ -85,7 +85,6 @@ export default function Sidebar() {
           ]}
         />
  
-        {/* Câmeras / Dispositivos */}
         <DropdownSidebarItem
           index={2}
           isOpen={openIndex === 2}
@@ -100,7 +99,6 @@ export default function Sidebar() {
           ]}
         />
  
-        {/* Gravações */}
         <DropdownSidebarItem
           index={3}
           isOpen={openIndex === 3}
@@ -114,7 +112,6 @@ export default function Sidebar() {
           ]}
         />
  
-        {/* Segurança */}
         <DropdownSidebarItem
           index={4}
           isOpen={openIndex === 4}
@@ -132,5 +129,55 @@ export default function Sidebar() {
     </div>
   );
 }
-
-export { SidebarItem, DropdownSidebarItem };
+ 
+// =======================
+// ITEM SIMPLES
+// =======================
+function SidebarItem({ href, icon, label }: any) {
+  return (
+    <Link href={href} className="flex items-center gap-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+      {icon}
+      {label}
+    </Link>
+  );
+}
+ 
+// =======================
+// DROPDOWN
+// =======================
+function DropdownSidebarItem({ index, isOpen, onToggle, label, icon, options }: any) {
+  return (
+    <div>
+      <button
+        onClick={() => onToggle(index)}
+        className="flex items-center justify-between w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+      >
+        <div className="flex items-center gap-2">
+          {icon}
+          {label}
+        </div>
+ 
+        <motion.div
+          animate={{ rotate: isOpen ? 90 : 0 }}
+        >
+          <ChevronRight size={18} />
+        </motion.div>
+      </button>
+ 
+      {isOpen && (
+        <div className="ml-6 mt-1 flex flex-col gap-1">
+          {options.map((item: any, i: number) => (
+            <Link
+              key={i}
+              href={item.href}
+              className="flex items-center gap-2 p-2 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              {item.icon}
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
