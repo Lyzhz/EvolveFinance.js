@@ -22,11 +22,13 @@ import {
   Trash,
   Shield,
   Bell,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
  
 import Link from 'next/link';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
  
 // =======================
@@ -34,29 +36,35 @@ import Image from 'next/image';
 // =======================
 export default function Sidebar() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [collapsed, setCollapsed] = useState(false);
  
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
  
   return (
-    <div className="sidebar h-full w-full bg-white text-black border flex flex-col shadow-lg dark:bg-gray-800 dark:text-white">
-      
-      <div className="flex pt-1">
-        <Image
-          src="/logo.png"
-          alt="logo"
-          className="p-5 ml-5 mb-2"
-          width={200}
-          height={200}
-        />
+    <motion.div
+      animate={{ width: collapsed ? 80 : 260 }}
+      className="h-full bg-white text-black border flex flex-col shadow-lg dark:bg-gray-800 dark:text-white"
+    >
+      {/* HEADER */}
+      <div className="flex items-center justify-between p-3">
+        {!collapsed && (
+          <Image src="/logo.png" alt="logo" width={120} height={120} />
+        )}
+ 
+        <button onClick={() => setCollapsed(!collapsed)}>
+          {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
+        </button>
       </div>
  
-      <nav className="flex-1 font-semibold overflow-y-auto border-y border-t-gray-200 py-3 px-2">
+      {/* NAV */}
+      <nav className="flex-1 overflow-y-auto px-2 space-y-1">
  
-        <SidebarItem href="/" icon={<Home size={20} />} label="Dashboard" />
+        <SidebarItem collapsed={collapsed} href="/" icon={<Home size={20} />} label="Dashboard" />
  
         <DropdownSidebarItem
+          collapsed={collapsed}
           index={0}
           isOpen={openIndex === 0}
           onToggle={handleToggle}
@@ -72,6 +80,7 @@ export default function Sidebar() {
         />
  
         <DropdownSidebarItem
+          collapsed={collapsed}
           index={1}
           isOpen={openIndex === 1}
           onToggle={handleToggle}
@@ -86,6 +95,7 @@ export default function Sidebar() {
         />
  
         <DropdownSidebarItem
+          collapsed={collapsed}
           index={2}
           isOpen={openIndex === 2}
           onToggle={handleToggle}
@@ -100,6 +110,7 @@ export default function Sidebar() {
         />
  
         <DropdownSidebarItem
+          collapsed={collapsed}
           index={3}
           isOpen={openIndex === 3}
           onToggle={handleToggle}
@@ -113,6 +124,7 @@ export default function Sidebar() {
         />
  
         <DropdownSidebarItem
+          collapsed={collapsed}
           index={4}
           isOpen={openIndex === 4}
           onToggle={handleToggle}
@@ -126,18 +138,29 @@ export default function Sidebar() {
         />
  
       </nav>
-    </div>
+    </motion.div>
   );
 }
  
 // =======================
 // ITEM SIMPLES
 // =======================
-function SidebarItem({ href, icon, label }: any) {
+function SidebarItem({ href, icon, label, collapsed }: any) {
   return (
-    <Link href={href} className="flex items-center gap-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+    <Link
+      href={href}
+      className="group relative flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+    >
       {icon}
-      {label}
+ 
+      {!collapsed && <span>{label}</span>}
+ 
+      {/* Tooltip */}
+      {collapsed && (
+        <span className="absolute left-14 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100">
+          {label}
+        </span>
+      )}
     </Link>
   );
 }
@@ -145,38 +168,56 @@ function SidebarItem({ href, icon, label }: any) {
 // =======================
 // DROPDOWN
 // =======================
-function DropdownSidebarItem({ index, isOpen, onToggle, label, icon, options }: any) {
+function DropdownSidebarItem({ index, isOpen, onToggle, label, icon, options, collapsed }: any) {
   return (
     <div>
       <button
         onClick={() => onToggle(index)}
-        className="flex items-center justify-between w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+        className="group relative flex items-center justify-between w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {icon}
-          {label}
+          {!collapsed && <span>{label}</span>}
         </div>
  
-        <motion.div
-          animate={{ rotate: isOpen ? 90 : 0 }}
-        >
-          <ChevronRight size={18} />
-        </motion.div>
+        {!collapsed && (
+          <motion.div animate={{ rotate: isOpen ? 90 : 0 }}>
+            <ChevronRight size={18} />
+          </motion.div>
+        )}
+ 
+        {/* Tooltip */}
+        {collapsed && (
+          <span className="absolute left-14 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100">
+            {label}
+          </span>
+        )}
       </button>
  
-      {isOpen && (
-        <div className="ml-6 mt-1 flex flex-col gap-1">
-          {options.map((item: any, i: number) => (
-            <Link
-              key={i}
-              href={item.href}
-              className="flex items-center gap-2 p-2 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+      {!collapsed && (
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
             >
-              {item.icon}
-              {item.label}
-            </Link>
-          ))}
-        </div>
+              <div className="ml-6 flex flex-col gap-1">
+                {options.map((item: any, i: number) => (
+                  <Link
+                    key={i}
+                    href={item.href}
+                    className="flex items-center gap-2 p-2 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       )}
     </div>
   );
