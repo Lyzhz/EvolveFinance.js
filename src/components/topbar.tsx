@@ -1,15 +1,11 @@
 'use client';
 
-import { Bell, SunDim, MoonStar, UserCircle2Icon } from 'lucide-react';
+import { Bell, UserCircle2Icon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import ThemeToggle from './theme-toggle';
 
-interface TopBarProps {
-  toggleTheme: () => void;
-  isDarkMode: boolean;
-}
-
-export default function TopBar({ toggleTheme, isDarkMode }: TopBarProps) {
+export default function TopBar() {
   const fullText = "Sistema de Cameras"; // Texto para animação
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
@@ -54,17 +50,7 @@ export default function TopBar({ toggleTheme, isDarkMode }: TopBarProps) {
           <UserCircle2Icon size={25} />
         </button>
 
-        {/* Botão de Tema */}
-        <button 
-          onClick={toggleTheme} 
-          className="relative rounded-full p-1 flex items-center justify-center transition-all duration-300 ease-out bg-gradient-to-br from-white to-white dark:from-gray-800 dark:to-gray-800 cursor-pointer"
-        >
-          {isDarkMode ? 
-            <SunDim size={30} className="transition-transform duration-200 hover:scale-120 dark:hover:bg-gray-700 rounded-4xl hover:text-gray-900 dark:hover:text-white" /> 
-            : 
-            <MoonStar size={30} className="transition-transform duration-200 hover:scale-110 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
-          }
-        </button>
+        <ThemeToggle />
       </div>
     </header>
   );
