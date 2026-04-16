@@ -1,38 +1,34 @@
 "use client";
 
-import { MoonStar, SunDim } from "lucide-react";
+import { Loader, MoonStar, SunDim } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { setTheme, theme } = useTheme();
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }, []);
+  const [mounted, setMounted] = useState(false);
 
-  const toggle = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.body.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	if (!mounted) {
+		return (
+  		<button
+        className="relative rounded-full p-1 flex items-center justify-center transition-all duration-300 ease-out bg-gradient-to-br from-white to-white dark:from-gray-800 dark:to-gray-800 cursor-pointer"
+      >
+        <Loader className="animate-spin" />
+      </button>
+		);
+	}
 
   return (
     <button
-      onClick={toggle}
+      onClick={theme == "dark" ? () => setTheme("light") : () => setTheme("dark")}
       className="relative rounded-full p-1 flex items-center justify-center transition-all duration-300 ease-out bg-gradient-to-br from-white to-white dark:from-gray-800 dark:to-gray-800 cursor-pointer"
     >
-      {isDarkMode ?
+      {theme == "dark" ?
         <SunDim size={30} className="transition-transform duration-200 hover:scale-120 dark:hover:bg-gray-700 rounded-4xl hover:text-gray-900 dark:hover:text-white" />
         :
         <MoonStar size={30} className="transition-transform duration-200 hover:scale-110 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
